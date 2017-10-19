@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>长春市综合交通运输指挥综合监控平台</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="./js/jquery.min.js"></script>
+	<!--test environment-->
+	<!--<script src="./js/echarts.js"></script>
+	<script src="./js/echarts-gl.js"></script>-->
+	<!---->
+
+	<!--production environment-->
+	<script src="./js/echarts.min.js"></script>
+	<script src="./js/echarts-gl.min.js">
+
+	</script>
+	<!---->
+	<script src="./js/theme/dark.js"></script>
+	<script type="text/javascript" src="./js/bmap.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hYCENCEx1nXO0Nt46ldexfG9oI49xBGh"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
+</head>
+
+<body>
+	<div class="title_bg"><a href='#' onclick="location.reload()">长春市综合交通运输指挥监控平台</a></div>
+	<div class="left">
+		<div class="bla_map_wai">
+			<a class="text_title">公交线路网</a>
+			<div class="bla_map" id="bla_map"></div>
+
+		</div>
+		<div class="left_bottom_wai">
+			<a class="text_title" style="display: block;margin-left: 10px;" href="VehicleOnLineNumber.html">不同时段车辆上线量</a>
+			<div class="left_bottom lbl" id="left_bottom_onRate"></div>
+		</div>
+		<div class="left_bottom_wai lbr">
+			<a class="text_title" style="display: block;margin-left: 10px;" href="trafficTripTool.html">不同时段交通出行工具选择</a>
+			<div class="left_bottom" id="left_bottom_peopleCount"></div>
+		</div>
+
+	</div>
+	<div class="middle">
+		<div class="mid_top_wai">
+			<a class="text_title" href="site.html">长春市公交站点</a>
+			<div id="mid_top_site" class="mid_top"></div>
+		</div>
+		<div class="mid_bot">
+			<div class="mid_bot_top">
+				<div class="mid_bot_topkj" id="mid_bot_vehiclePercentage"></div>
+				<div class="mid_bot_toptxt">
+					<ul onclick="javascript:window.location.href='VehicleTypeTrade.html'">
+						<li><a class="text_title" href="VehicleTypeTrade.html">长春市各行业车辆</a></li>
+						<li><a>公交车：4457</a></li>
+						<li><a>出租车：15401</a></li>
+						<li><a>货运车：98782</a></li>
+						<li><a>旅游包车：691</a></li>
+						<li><a>客运车：4135</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="mid_bot_bottom">
+				<div style="margin-left: 20px;" class="mid_bot_toptxt">
+					<ul>
+						<li><a class="text_title" href="IndustryService.html">各行业服务满意度</a></li>
+						<li><a>公交服务：87%</a></li>
+						<li><a>出租服务：76%</a></li>
+						<li><a>货运服务：81%</a></li>
+						<li><a>旅游服务：93%</a></li>
+						<li><a>客运服务：90%</a></li>
+					</ul>
+				</div>
+				<div class="mid_bot_bottomkj" id="mid_bot_bottom_score"></div>
+
+			</div>
+		</div>
+	</div>
+	<div class="right">
+		<div class="rig_top" id="rig_top_timeAndWeather">
+			<div class="rig_top_lefttxt">
+				<a id="timeArea" style="font-size: 52px;"></a>
+				<a id="dateArea" style="font-size: 20px;margin-top: 10px;"></a>
+			</div>
+			<div class="rig_top_righttxt">
+				<a id="temperature" style="float: left;"></a><a style="width: 70px;overflow: hidden;"><img id="weatherPic" style="display: block;float: left;margin-left: 20px;" src="" /></a>
+				<a id="wind"></a>
+				<a id="pm25"></a>
+			</div>
+		</div>
+		<div class="rig_mid">
+			<div class="zhiban">
+				<ul>
+					<li><a class="text_title" style="float: left;">值班领导：</a><a style="display: block;margin-left: 107px;">雷昊</a></li>
+					<li><a class="text_title" style="float: left;">值班人员：</a><a class="zhibanren">王天龙</a><a class="zhibanren">张超</a>
+						<a class="zhibanren">张永泉</a><a class="zhibanren">梁一骁</a><a>李尧</a><br /></li>
+				</ul>
+			</div>
+			<div class="jtxianzhuang">
+				<a class="text_title">交通现状</a>
+			</div>
+			<div>
+				<div class="biankuang">
+					<a class="bk_title">全市车辆密度</a>
+					<div class="kuangnei_left"></div>
+					<div class="kuangnei_right">
+						<a id="vehDensity" style="font-size: 40px;line-height: 105px;"></a>
+						<a style="font-size: 20px;line-height: 120px;">辆/KM</a>
+					</div>
+				</div>
+				<div class="biankuang">
+					<a class="bk_title" style="width:155px;">全市车辆平均速度</a>
+					<div class="kuangnei_left"></div>
+					<div class="kuangnei_right">
+						<a id="vehSpeed" style="font-size: 40px;line-height: 105px;"></a>
+						<a style="font-size: 20px;line-height: 120px;">KM/H</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="rig_bot">
+			<a class="text_title" href="vehicle.html" style="display: block;margin-top: 20px;margin-left: 10px;">车流量报警</a>
+			<table style="display: block;">
+				<tr id="area1">
+					<th class="lie1 hangtou" rowspan="2">人民广场</th>
+					<th class="lie2 hangtou"></th>
+					<th class="lie3 hangtou" rowspan="2"><a class="btn changtong"></a></th>
+				</tr>
+				<tr>
+					<th></th>
+				</tr>
+				<tr id="area2">
+					<th class="lie1 hangtou" rowspan="2">工农广场</th>
+					<th class="lie2 hangtou"></th>
+					<th class="lie3 hangtou" rowspan="2"><a class="btn yongji"></a></th>
+				</tr>
+				<tr>
+					<th></th>
+				</tr>
+				<tr id="area3">
+					<th class="lie1 hangtou" rowspan="2">卫星广场</th>
+					<th class="lie2 hangtou"></th>
+					<th class="lie3 hangtou" rowspan="2"><a class="btn changtong"></a></th>
+				</tr>
+				<tr>
+					<th></th>
+				</tr>
+				<tr id="area4">
+					<th class="lie1 hangtou" rowspan="2">人民大街解放大路</th>
+					<th class="lie2 hangtou"></th>
+					<th class="lie3 hangtou" rowspan="2"><a class="btn zhengchang"></a></th>
+				</tr>
+				<tr>
+					<th></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>

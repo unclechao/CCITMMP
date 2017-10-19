@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>不同时段交通出行工具选择</title>
+    <!--
+    <link rel="stylesheet" href="css/style.css" />
+	-->
+    <link rel="stylesheet" href="css/style_child.css" />
+    <script src="./js/jquery.min.js"></script>
+    <!--test environment-->
+    <!--<script src="./js/echarts.js"></script>
+	<script src="./js/echarts-gl.js"></script>-->
+    <!---->
+
+    <!--production environment-->
+    <script src="./js/echarts.min.js"></script>
+    <script src="./js/echarts-gl.min.js"></script>
+    <!---->
+    <script src="./js/theme/dark.js"></script>
+    <script type="text/javascript" src="./js/bmap.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hYCENCEx1nXO0Nt46ldexfG9oI49xBGh"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="DataTables/DataTables-1.10.16/css/jquery.dataTables.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.4.2/sl-1.2.3/datatables.min.js"></script>
+</head>
+
+<body onload="loaddata()">
+    <div class="title_bg_child"><a href="index.html">不同时段交通出行工具选择</a></div>
+    <div class="main_div" id="main_div"></div>
+    <script>
+        //获取日期时间
+        function toDatetime(timestamp) {
+            var unixTimestamp = new Date(timestamp * 1000)
+            return unixTimestamp.toLocaleString()
+        }
+        //截取目标网址字符串对象
+        function returnURL(url) {
+            return url = url.substr(0, 7).toLowerCase() == "http://" ? url : "http://" + url;
+        }
+        //body初始执行的dataTables目标函数
+        function loaddata() {
+            $.getJSON("data/index-icon.json", function (json) {
+                var arr = json.trafficTripTool;
+                var json_len = arr.length;
+                var html = "<table id=\"myTable\" class=\"display\" style=\"text-align: center;\">";
+                html = html + "<thead><th>序号</th><th>周时刻</th><th>车辆类型</th><th>车牌号</th><th>状态</th></thead>"
+                for (var i = 0; i < json_len; i++) {
+                    html = html
+                        + "<tr><td>" + eval(i + 1) + "</td>"
+                        + "<td>" + json.trafficTripTool[i].weekTime + "</td>"
+                        + "<td>" + json.trafficTripTool[i].type + "</td>"
+                        + "<td>" + json.trafficTripTool[i].plateNum + "</td>"
+                        + "<td>" + json.trafficTripTool[i].isOnLine + "</td></tr>";
+                }
+                html = html + "</table>";
+                $('<div id="table_div" />').html(html).appendTo('#main_div');
+                $(document).ready(function () {
+                    $('#myTable').DataTable({
+                        "paginate": true,                     //翻页功能
+                        "paginate": true,                      //是否使用分页
+                        "sort": true,                        //排序功能
+                        "jQueryUI": false,
+                        "info": true,                         //页脚信息
+                        "lengthMenu": [10, 20, 50, 100],
+                        "displayLength": 20,                  //默认的显示行数
+                        "bAutoWidth": true,                   //是否启用自动适应列宽
+                        "language": {
+                            "lengthMenu": "每页显示 _MENU_ 条记录",
+                            "zeroRecords": "抱歉， 没有找到",
+                            "info": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                            "infoEmpty": "记录数据为0",
+                            "search": "搜索",
+                            "infoFiltered": "(从 _MAX_ 条数据中检索)",
+                            "paginate": {
+                                "first": "首页",
+                                "previous": "前一页",
+                                "next": "后一页",
+                                "last": "尾页"
+                            }
+                        }
+                    });
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
