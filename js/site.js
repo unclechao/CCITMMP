@@ -199,7 +199,7 @@ obj.EchartsInit = (params) => {
 
 $(() => {
     $.ajax({
-        url: "http://111.26.195.112:8001/api/site",
+        url: "http://111.26.195.112:8091/api/site",
         type: 'GET',
         dataType: 'JSON',
         success: (sites) => {

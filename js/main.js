@@ -79,7 +79,7 @@ function HeatMap() {
 	var mid_top_heatMap_chart = echarts.init(document.getElementById("mid_top"));
 	var heatMap_data = [];
 	$.ajax({
-		url: "http://111.26.195.112:8001/api/bus",
+		url: "http://111.26.195.112:8091/api/bus",
 		type: 'GET',
 		dataType: 'JSON',
 		success: function (data) {
@@ -212,7 +212,7 @@ function Map() {
 	// 公交线网地图	
 	var bla_map_chart = echarts.init(document.getElementById("bla_map"));
 	$.ajax({
-		url: "http://111.26.195.112:8001/api/busline",
+		url: "http://111.26.195.112:8091/api/busline",
 		type: 'GET',
 		dataType: 'JSON',
 		success: function (data) {
